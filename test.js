@@ -69,42 +69,33 @@ function runTests() {
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
 
-    console.log('===');
-    var cmd2 = cp.spawn("ls", ["-la", ".vscode-test/stable/VSCode-linux-x64"]);
-    cmd2.stdout.on('data', function (data) {
+    var cmd = cp.spawn(executable, args);
+
+    cmd.stdout.on('data', function (data) {
         console.log(data.toString());
     });
 
-    cmd2.stderr.on('data', function (data) {
+    cmd.stderr.on('data', function (data) {
         console.error(data.toString());
     });
-    cmd2.on('close', function (code) {
-        console.log('cmd2: ' + code);
-        console.log('===');
-        if (code !== 0) {
-            process.exit(code); // propagate exit code to outer runner
-        }
 
-        var cmd = cp.spawn(executable, args);
+    cmd.on('error', function (data) {
+        console.log('Failed to execute tests: ' + data.toString());
+    });
 
-        cmd.stdout.on('data', function (data) {
+    cmd.on('close', function (code) {
+        console.log('Tests exited with code: ' + code);
+        var cmd2 = cp.spawn("tail", ["-500", "var/log/syslog"]);
+        cmd2.stdout.on('data', function (data) {
             console.log(data.toString());
         });
 
-        cmd.stderr.on('data', function (data) {
+        cmd2.stderr.on('data', function (data) {
             console.error(data.toString());
         });
 
-        cmd.on('error', function (data) {
-            console.log('Failed to execute tests: ' + data.toString());
-        });
-
-        cmd.on('close', function (code) {
-            console.log('Tests exited with code: ' + code);
-
-            if (code !== 0) {
-                process.exit(code); // propagate exit code to outer runner
-            }
+        cmd2.on('close', function (code) {
+            process.exit(code); // propagate exit code to outer runner
         });
     });
 }
