@@ -66,7 +66,7 @@ function runTests() {
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
 
     console.log('===');
-    var cmd2 = cp.spawn("ls", ["-la", ".vscode-test/stable/VSCode-linux-x64"]]);
+    var cmd2 = cp.spawn("ls", ["-la", ".vscode-test/stable/VSCode-linux-x64"]);
     cmd2.stdout.on('data', function (data) {
         console.log(data.toString());
     });
