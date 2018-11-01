@@ -63,7 +63,8 @@ function runTests() {
         '--extensionTestsPath=' + testsFolder,
         '--verbose',
         '--log',
-        "'trace'"
+        "'trace'",
+        //'-s'
     ];
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
@@ -102,7 +103,7 @@ function runTests() {
             console.log('Tests exited with code: ' + code);
 
             if (code !== 0) {
-                //process.exit(code); // propagate exit code to outer runner
+                process.exit(code); // propagate exit code to outer runner
             }
         });
     });
