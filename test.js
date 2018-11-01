@@ -85,7 +85,7 @@ function runTests() {
 
     cmd.on('close', function (code) {
         console.log('Tests exited with code: ' + code);
-        var cmd2 = cp.spawn("tail", ["-500", "var/log/syslog"]);
+        var cmd2 = cp.spawn("tail", ["-500", "/var/log/syslog"]);
         cmd2.stdout.on('data', function (data) {
             console.log(data.toString());
         });
