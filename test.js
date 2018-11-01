@@ -65,8 +65,8 @@ function runTests() {
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
 
-    var cmd = cp.spawn(executable, args,{stdio: "inherit"});
-
+    var cmd = cp.spawn(executable, args,{stdio: "pipe"});
+    console.log(cmd);
     cmd.stdout.on('data', function (data) {
         console.log(data.toString());
     });
