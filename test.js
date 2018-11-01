@@ -82,7 +82,8 @@ function runTests() {
     cmd.on('close', function (code) {
         console.log('Tests exited with code: ' + code);
         //process.exit(code); // propagate exit code to outer runner
-         var cmd2 = cp.spawn(executable, ["-s",]);
+        console.log("===");
+        var cmd2 = cp.spawn(executable, ["-s"]);
         cmd2.stdout.on('data', function (data) {
             console.log(data.toString());
         });
@@ -92,6 +93,7 @@ function runTests() {
         });
 
         cmd2.on('close', function (code) {
+            console.log("===");
             process.exit(code); // propagate exit code to outer runner
         });
     });
