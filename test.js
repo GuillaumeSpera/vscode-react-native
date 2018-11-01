@@ -61,15 +61,11 @@ function runTests() {
         testsWorkspace,
         '--extensionDevelopmentPath=' + extensionsFolder,
         '--extensionTestsPath=' + testsFolder,
-        '--verbose',
-        '--log',
-        "'trace'",
-        '-s'
     ];
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
 
-    var cmd = cp.spawn(executable, args);
+    var cmd = cp.spawn(executable, args,{stdio: "inherit"});
 
     cmd.stdout.on('data', function (data) {
         console.log(data.toString());
@@ -85,7 +81,8 @@ function runTests() {
 
     cmd.on('close', function (code) {
         console.log('Tests exited with code: ' + code);
-        var cmd2 = cp.spawn("tail", ["-500", "/var/log/syslog"]);
+        //process.exit(code); // propagate exit code to outer runner
+         var cmd2 = cp.spawn(executable, ["-s",]);
         cmd2.stdout.on('data', function (data) {
             console.log(data.toString());
         });
