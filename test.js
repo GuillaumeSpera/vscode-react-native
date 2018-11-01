@@ -61,7 +61,9 @@ function runTests() {
         testsWorkspace,
         '--extensionDevelopmentPath=' + extensionsFolder,
         '--extensionTestsPath=' + testsFolder,
-        '--verbose'
+        '--verbose',
+        '--log',
+        "'trace'"
     ];
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
