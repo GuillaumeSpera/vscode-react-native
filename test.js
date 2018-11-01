@@ -60,7 +60,8 @@ function runTests() {
     var args = [
         testsWorkspace,
         '--extensionDevelopmentPath=' + extensionsFolder,
-        '--extensionTestsPath=' + testsFolder
+        '--extensionTestsPath=' + testsFolder,
+        '--verbose'
     ];
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
