@@ -64,7 +64,7 @@ function runTests() {
         '--verbose',
         '--log',
         "'trace'",
-        //'-s'
+        '-s'
     ];
 
     console.log('Running extension tests: ' + [executable, args.join(' ')].join(' '));
